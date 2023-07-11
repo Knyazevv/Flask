@@ -5,6 +5,10 @@
 {% endblock %}
 {% block content %}
 <div class="container">
+    <div>
+        <a href="{{ url_for('login') }}">LOGIN</a>
+        <a href="{{ url_for('index') }}">HOME</a>
+    </div>
     <div class="row">
       <div class="col-md-6 offset-md-3">
         <form>
@@ -30,5 +34,4 @@
       </div>
     </div>
   </div>
-  
 {% endblock %}
