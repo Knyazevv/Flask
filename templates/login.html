@@ -4,5 +4,23 @@
 {{ title }}
 {% endblock %}
 {% block content %}
-<h1> Flask Login</h1>
+<div class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <form>
+          <h2>Вхід</h2>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="Введіть ваш email">
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Пароль</label>
+            <input type="password" class="form-control" id="password" placeholder="Введіть пароль">
+          </div>
+          <button type="submit" class="btn btn-primary">Увійти</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
 {% endblock %}

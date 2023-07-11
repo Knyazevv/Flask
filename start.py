@@ -1,18 +1,35 @@
 from flask import Flask, render_template, redirect
 from flask_bootstrap import Bootstrap
 from flask_mysqldb import MySQL
-import yaml
+import yaml, os
 
 
 app = Flask(__name__)
 Bootstrap(app)
 
-db = yaml.load(open("settings.yaml"), Loader=yaml.FullLoader)
+
+
+db = yaml.safe_load(open("settings.yaml"))
+app.config["MYSQL_HOST"] = db["mysql_host"]
+app.config["MYSQL_USER"] = db["mysql_user"]
+app.config["MYSQL_PASSWORD"] = db["mysql_password"]
+app.config["MYSQL_DB"] = db["mysql_db"]
+app.config["MYSQL_CURSORCLASS"] = "DictCursor"
+app.config["SECRET_KEY"] = os.urandom(24)
+mysql = MySQL(app)
+
 
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    cursor = mysql.connection.cursor()
+    result = cursor.execute("SELECT * FROM posts")
+    if result > 0:
+        posts = cursor.fetchall()
+        print(f"fetch posts: {posts}")
+        cursor.close()
+        return render_template("index.html", blogs=posts)
+    return render_template("index.html", blogs=None)
 
 @app.route("/about")
 def about():

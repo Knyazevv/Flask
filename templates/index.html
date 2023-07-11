@@ -3,6 +3,37 @@
 {% block title %}
 {{ title }}
 {% endblock %}
+
 {% block content %}
-<h1> Flask subCONTENT</h1>
+
+<div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if blogs %}
+              {% for post in blogs %}
+                <tr>
+                  <td><h1>{{ post.title }}</h1></td>
+                  <td><h5>{{ post.deskription }}</h5></td>
+                </tr>
+              {% endfor %}
+            {% else %}
+              <tr>
+                <td colspan="2"><p>No posts available.</p></td>
+              </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+
 {% endblock %}

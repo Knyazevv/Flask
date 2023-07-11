@@ -4,5 +4,31 @@
 {{ title }}
 {% endblock %}
 {% block content %}
-<h1> Flask Regisrer</h1>
+<div class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <form>
+          <h2>Реєстрація</h2>
+          <div class="mb-3">
+            <label for="name" class="form-label">Ім'я</label>
+            <input type="text" class="form-control" id="name" placeholder="Введіть ваше ім'я">
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="Введіть ваш email">
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Пароль</label>
+            <input type="password" class="form-control" id="password" placeholder="Введіть пароль">
+          </div>
+          <div class="mb-3">
+            <label for="confirm-password" class="form-label">Підтвердження пароля</label>
+            <input type="password" class="form-control" id="confirm-password" placeholder="Підтвердіть пароль">
+          </div>
+          <button type="submit" class="btn btn-primary">Зареєструватись</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
 {% endblock %}
