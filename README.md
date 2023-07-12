@@ -4,6 +4,7 @@ python -m venv env
 
 pip install -r requirements.txt
 
+flask --app start run
 
 При додаванні нових пакетів в venv
 
