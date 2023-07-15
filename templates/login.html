@@ -1,33 +1,74 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block sub_content %}
+<section class="vh-100" style="background-color: #617e9a">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-xl-11">
+        <div class="card" style="border-radius: 1rem">
+          <div class="row g-0">
+            <div class="col-md-6 col-lg-5 d-none d-md-block">
+              <img
+                src="https://i.pinimg.com/564x/40/67/aa/4067aa9e6340a8f1acbaf6de5e8491b8.jpg"
+                alt="login form"
+                class="img-fluid"
+                style="border-radius: 1rem 0 0 1rem"
+              />
+            </div>
+            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+              <div class="card-body p-4 p-lg-5 text-black">
+                <form method="POST">
+                  <div class="d-flex align-items-center mb-3 pb-1">
+                    <i class="fa-2x me-3" style="color: #617e9a"></i>
+                    <span class="h1 fw-bold mb-0">BlogLand</span>
+                  </div>
 
-{% block title %}
-{{ title }}
-{% endblock %}
-{% block content %}
-<div class="container">
-    <div class="container">
-        <div>
-       
-            <a href="{{ url_for('register') }}">REGISTER</a>
-            <a href="{{ url_for('index') }}">HONE</a>
-    
+                  <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px">
+                    Log into your account
+                  </h5>
+
+                  <div class="form-outline mb-4">
+                    <input
+                      type="text"
+                      id="form2Example17"
+                      name="username"
+                      class="form-control form-control-lg"
+                    />
+                    <label class="form-label" for="form2Example17"
+                      >Username</label
+                    >
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <input
+                      type="password"
+                      id="form2Example27"
+                      name="password"
+                      class="form-control form-control-lg"
+                    />
+                    <label class="form-label" for="form2Example27"
+                      >Password</label
+                    >
+                  </div>
+
+                  <div class="pt-1 mb-4">
+                    <button class="btn btn-dark btn-lg btn-block" type="submit">
+                      Login
+                    </button>
+                  </div>
+
+                  <a class="small text-muted" href="#!">Forgot password?</a>
+                  <p class="mb-5 pb-lg-2" style="color: #393f81">
+                    Don't have an account?
+                    <a href="{{url_for('register')}}" style="color: #617e9a"
+                      >Register here</a
+                    >
+                  </p>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
-    <div class="row">
-      <div class="col-md-6 offset-md-3">
-        <form>
-          <h2>Вхід</h2>
-          <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" placeholder="Введіть ваш email">
-          </div>
-          <div class="mb-3">
-            <label for="password" class="form-label">Пароль</label>
-            <input type="password" class="form-control" id="password" placeholder="Введіть пароль">
-          </div>
-          <button type="submit" class="btn btn-primary">Увійти</button>
-        </form>
       </div>
     </div>
   </div>
-  
+</section>
 {% endblock %}

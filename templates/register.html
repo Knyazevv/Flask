@@ -1,37 +1,132 @@
 {% extends 'base.html' %}
 
-{% block title %}
-{{ title }}
-{% endblock %}
-{% block content %}
-<div class="container">
-    <div>
-        <a href="{{ url_for('login') }}">LOGIN</a>
-        <a href="{{ url_for('index') }}">HOME</a>
-    </div>
-    <div class="row">
-      <div class="col-md-6 offset-md-3">
-        <form>
-          <h2>Реєстрація</h2>
-          <div class="mb-3">
-            <label for="name" class="form-label">Ім'я</label>
-            <input type="text" class="form-control" id="name" placeholder="Введіть ваше ім'я">
+{% block sub_content %}
+<section class="vh-100" style="background-color: #867b4e">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-xl-12">
+        <div class="card" style="border-radius: 1rem">
+          <div class="row g-0">
+            <div class="col-md-6 col-lg-5 d-none d-md-block">
+              <img
+              src="https://i.pinimg.com/564x/0f/32/ab/0f32ab02e80f8b0ed880649d2433ab10.jpg"
+              alt="login form"
+              class="img-fluid"
+              style="border-radius: 1rem 0 0 1rem"
+              />
+            </div>
+            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+              <div class="card-body p-4 p-lg-4 text-black">
+                <form method="POST">
+                  <div class="d-flex align-items-center mb-3 pb-1">
+                    <i class="fa-2x me-3" style="color: #617e9a"></i>
+                    <span class="h1 fw-bold mb-0">BlogLand</span>
+                  </div>
+
+                  <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px">
+                    Register a new account
+                  </h5>
+
+                  <div class="row">
+                    <div class="col-md-6 mb-4">
+                      <div class="form-outline">
+                        <input
+                          type="text"
+                          id="form3Example1"
+                          class="form-control"
+                          name="first_name"
+                        />
+                        <label class="form-label" for="form3Example1"
+                          >First name</label
+                        >
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                      <div class="form-outline">
+                        <input
+                          type="text"
+                          id="form3Example2"
+                          name="last_name"
+                          class="form-control"
+                        />
+                        <label class="form-label" for="form3Example2"
+                          >Last name</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <input
+                      type="text"
+                      id="form3Example3"
+                      class="form-control"
+                      name="username"
+                    />
+                    <label class="form-label" for="form3Example3"
+                      >Username</label
+                    >
+                  </div>
+
+                  <!-- Email input -->
+                  <div class="form-outline mb-4">
+                    <input
+                      type="email"
+                      id="form3Example3"
+                      class="form-control"
+                      name="email"
+                    />
+                    <label class="form-label" for="form3Example3"
+                      >Email address</label
+                    >
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <input
+                      type="password"
+                      id="form2Example27"
+                      class="form-control form-control-lg"
+                      name="password"
+                    />
+                    <label class="form-label" for="form2Example27"
+                      >Password</label
+                    >
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <input
+                      type="password"
+                      id="form2Example27"
+                      name="confirmPassword"
+                      class="form-control form-control-lg"
+                    />
+                    <label class="form-label" for="form2Example27"
+                      >Confirm password</label
+                    >
+                  </div>
+
+                  <div class="pt-1 mb-4">
+                    <button class="btn btn-dark btn-lg btn-block" type="submit">
+                      Register
+                    </button>
+                  </div>
+
+                  <a class="small text-muted" href="#!">Forgot password?</a>
+                  <p class="mb-5 pb-lg-2" style="color: #393f81">
+                    Do have an account already?
+                    <a href="{{url_for('login')}}" style="color: #867b4e"
+                      >Login here</a
+                    >
+                  </p>
+                  <a href="#!" class="small text-muted">Terms of use.</a>
+                  <a href="#!" class="small text-muted">Privacy policy</a>
+                </form>
+              </div>
+            </div>
           </div>
-          <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" placeholder="Введіть ваш email">
-          </div>
-          <div class="mb-3">
-            <label for="password" class="form-label">Пароль</label>
-            <input type="password" class="form-control" id="password" placeholder="Введіть пароль">
-          </div>
-          <div class="mb-3">
-            <label for="confirm-password" class="form-label">Підтвердження пароля</label>
-            <input type="password" class="form-control" id="confirm-password" placeholder="Підтвердіть пароль">
-          </div>
-          <button type="submit" class="btn btn-primary">Зареєструватись</button>
-        </form>
+        </div>
       </div>
     </div>
   </div>
+</section>
 {% endblock %}
