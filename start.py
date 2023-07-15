@@ -36,71 +36,58 @@ def index():
 def about():
     return render_template("about.html")
 
+@app.route("/posts/<int:id>")
+def posts(id):
+    cursor = mysql.connection.cursor()
+    result = cursor.execute("SELECT * FROM posts WHERE id = %s", (id,))
+    if result > 0:
+        post = cursor.fetchone()  
+        print(f"fetch post: {post}")
+        cursor.close()
+        return render_template("posts.html", post=post)
+    return render_template("posts.html", post=id)
 
-@app.route("/blogs/<int:id>/")
-def blog(id):
-    return render_template("blog.html", blog=id)
-
-
-# @app.route("/register/", methods=["GET", "POST"])
-# def register():
-#     if request.method == "POST":
-#         user_details = request.form
-#         print(f"user_details {user_details}")
-
-#         cursor = mysql.connection.cursor()
-
-#         # cursor.execute("SELECT * FROM users WHERE username = %s", (user_details['username'],))
-#         # if cursor.fetchone():
-#         #     flash("Username already taken. Please choose a different username.", "danger")
-#         #     cursor.close()
-#         #     return render_template("register.html")
-
-#         # cursor.execute("SELECT * FROM users WHERE email = %s", (user_details['email'],))
-#         # if cursor.fetchone():
-#         #     flash("Email already registered. Please use a different email address.", "danger")
-#         #     cursor.close()
-#         #     return render_template("register.html")
-
-#         # if not all(user_details.values()):
-#         #     flash("Please fill in all fields.", "danger")
-#         #     cursor.close()
-#         #     return render_template("register.html")
-
-#         if user_details["password"] != user_details["confirmPassword"]:
-#             flash("Passwords do not match.", "danger")
-#             cursor.close()
-#             return render_template("register.html")
-
-#         cursor.execute("INSERT INTO users(id, first_name, last_name, username, email, password) VALUES (%s, %s, %s, %s, %s, %s)",
-#                        ("", user_details['first_name'], user_details['last_name'], user_details['username'], user_details['email'], generate_password_hash(user_details['password'])))
-
-#         cursor.connection.commit()
-#         cursor.close()
-
-#         flash("User successfully registered", "success")
-#         return redirect("/login")
-
-#     return render_template("register.html")
 
 @app.route("/register/", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        user_details = request.form
-        print(f"user_details {user_details}")
-        if user_details["password"] != user_details["confirmPassword"]:
-            flash("Password do not match.", "danger")
-            return render_template("register.html")
+        user_details = request.form      
+
         cursor = mysql.connection.cursor()
 
-        cursor.execute("INSERT INTO users(id, first_name, last_name, username, email, password) VALUES (%s, %s, %s, %s, %s, %s)", (
-            "", user_details['first_name'], user_details['last_name'], user_details['username'], user_details['email'], generate_password_hash(user_details['password'])))
+        cursor.execute("SELECT * FROM users WHERE username = %s", (user_details['username'],))
+        if cursor.fetchone():
+            flash("Username already taken. Please choose a different username.", "danger")
+            cursor.close()
+            return render_template("register.html")
+
+        cursor.execute("SELECT * FROM users WHERE email = %s", (user_details['email'],))
+        if cursor.fetchone():
+            flash("Email already registered. Please use a different email address.", "danger")
+            cursor.close()
+            return render_template("register.html")
+
+        if not all(user_details.values()):
+            flash("Please fill in all fields.", "danger")
+            cursor.close()
+            return render_template("register.html")
+
+        if user_details["password"] != user_details["confirmPassword"]:
+            flash("Passwords do not match.", "danger")
+            cursor.close()
+            return render_template("register.html")
+
+        cursor.execute("INSERT INTO users(id, first_name, last_name, username, email, password) VALUES (%s, %s, %s, %s, %s, %s)",
+                       ("", user_details['first_name'], user_details['last_name'], user_details['username'], user_details['email'], generate_password_hash(user_details['password'])))
+
         cursor.connection.commit()
         cursor.close()
-        flash("User successfully registerd", "success")
+
+        flash("User successfully registered", "success")
         return redirect("/login")
 
     return render_template("register.html")
+
 
 
 @app.route("/login/", methods=["GET", "POST"])
@@ -153,8 +140,39 @@ def delete_blog(id):
 
 @app.route("/logout/")
 def logout():
-    # session.clear()
+    session.clear()
+    flash("You have been logged out!", "info")
     return redirect("/")
+
+
+# @app.route("/write-blog/")
+# def write_blog():
+#     return render_template("write_blog.html")
+
+
+
+
+
+@app.route("/write-blog/", methods=["GET", "POST"])
+def new_post():
+    if request.method == "POST":
+        post_details = request.form
+        cursor = mysql.connection.cursor()
+     
+        if not post_details["title"]: flash("Enter title!", "danger")
+        elif not post_details["deskription"]: flash("Enter description!", "danger")
+        elif not post_details["text"]: flash("Enter text!", "danger")
+        else:
+            cursor.execute("INSERT INTO posts(id, title, deskription, text) VALUES (%s, %s, %s, %s)",("", post_details['title'], post_details['deskription'], post_details['text']))
+            cursor.connection.commit()
+            cursor.close()
+            flash("You successefully created a new post", "success")
+            return redirect("/")
+
+    return render_template("new_post.html")
+@app.route("/edit-post/<int:id>", methods=["GET", "POST"])
+def edit_post(id):
+    return render_template("edit_post.html", post=id)
 
 
 if __name__ == "__main__":
